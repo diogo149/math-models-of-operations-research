@@ -1,0 +1,30 @@
+The following are my conclusions on usage of the artificial
+variables algorithm vs using phase 0 and phase 1.
+
+The function used to test this is entitled
+    compare_art_vars_and_phases
+and the methodology used was as follows:
+    -given a set of M values and N-M values to test for, each
+    combonation was tested
+    -in the tests, a M+1 by N+1 tableau is generated and solved
+    using the simplex method
+    -this tableau then has it's rows randomly permuted in a way
+    that preserves the solution to the problem
+    -both the artificial variables algorithm and the phases
+    algorithm are then timed to get a canonical form tableau and
+    the simplex method is used to solve this tableau
+    -accuracy of each method is checked by if these solutions
+    match up to the original solution
+    -this is repeated a preset number of iterations that scales
+    with tableau size in order to not take too long
+
+Conclusions:
+    -the accuracy of both methods were exactly the same every test
+    -the phases algorithm was faster on average for the tests
+    -the closer that the tableau is to square, the faster the larger
+    the relative difference in time (with the phases algorithm
+    faster)
+    -when N-M gets very large, the artificial variables algorithm
+    begins to go faster than the phases
+
+My conclusion is that the phases algorithm is superior for most cases.

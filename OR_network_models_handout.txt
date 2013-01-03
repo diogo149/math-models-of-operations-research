@@ -1,0 +1,15 @@
+As requested, my suggested revisions for the "Network Models
+conclusion" handout.
+
+The main revision that I would like to suggest is to not use
+a linked list for each node to contain the costs. This is because
+the GNF algorithm requires repeatedly lookup of the costs for each
+edge and this operation would cost O(n) for a linked list.
+
+In my implementation, I chose to use a n by n matrix to store the
+pairwise costs resulting in O(1) complexity to look up the cost.
+The downside of this appraoch is a O(n^2) space complexity, which
+is a waste especially if the graph is sparse.
+
+The best option would be a hashtable which allows O(1) lookup
+complexity as well as O(n) space complexity.

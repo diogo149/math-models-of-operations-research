@@ -1,0 +1,180 @@
+Table of Contents
+
+absLinearFit(X,Y,~)
+
+    takes in X and Y vectors corresponding to points,
+    and returns a simplex tableau whose optimal solution
+    is the line that minimzes absolute value distance
+    from the points
+    
+    if a 3rd parameter is given, the returned tableau
+    will be in canonical form
+
+effArtVars(A,tol)
+
+    performs artificial variables algorithm on A then
+    performs the simplex algorithm to return the solution,
+    optimal form tableau, and an exit flag
+    
+    an exit flag of 0 indicates the problem is infeasible, 1
+    indicates the algorithm was successful, and 2 indicates
+    that the problem is unbounded
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+effBFS(A,tol)
+
+    returns the solution to the tableau and the basic
+    feasible sequence
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+effPhase0(A,tol)
+
+    performs phase 0 algorithm on input tableau; returns a
+    tableau with identity columns (and 0 costs at those columns)
+    and an exit flag
+    
+    an exit flag of 1 indicates that the algorithm is successful
+    and 0 indicates that the tableau is in infeasible form 1
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+effPhase1(A,tol)
+
+    performs phase 1 algorithm on a tableau with identity
+    columns (and 0 costs at those columns) and returns a
+    canonical form tableau and an exit flag
+    
+    an exit flag of 1 indicates that the algorithm is successful
+    and 0 indicates that the tableau is in infeasible form 2
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+effPhaseSimplex(A,tol)
+
+    performs phase 0, phase 1, and simplex method on input tableau
+    returning the optimal solution, the final tableau, and an
+    exit flag
+    
+    an exit flag of 1 indicates that the algorithm is successful
+    and 0 indicates that it failed (one of the two infeasible
+    forms or unbounded form)
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+GNFgraph
+
+    a class for solving general network flow problems
+    (see GNFsample for code on how to use this class)
+    
+    the setN method must be called before adding edges
+    and nodes (in order to avoid costly reallocation)
+    
+    just a prototype: many improvements could be made
+
+GNFsample
+
+    a script with sample code showing how to use the
+    GNFgraph class to solve general network flow problems
+
+piv(A,i,j,tol)
+
+    pivots tableau A at row i and column j
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-13
+
+randomCF(m,n)
+
+    generates a random m+1 by n+1 canonical form tableau
+    
+    this function requires that n > m
+
+reinversion(A, S, origS, tol)
+
+    reinverts pivot matrix (for revised simplex method); takes
+    the original matrix A, current BFS S, and original BFS origS
+    and returns the new pivot matrix and BFS
+    
+    note that the BFS shouldn't change, but it may due to machine
+    precision
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+remove0Rows(A)
+
+    removes the empty rows of the tableau
+    
+    note: make sure to remember to recalculate the size
+    of the tableau if needed
+
+removeCF(A)
+
+    takes in a canonical form tableau and returns an equivalent
+    randomly permuted tableau
+    
+    used for testing
+
+revisedSimplexRule(A,tol)
+
+    takes in a simplex tableau and repeatedly performs
+    revised simplex pivots, returning the final simplex
+    tableau and an exit flag
+    
+    an exit flag of 2 indicates that the tableau is
+    already in optimal form and 0 indicates that the
+    tableau is in unbounded form
+    
+    this algorithm assumes that A is in canonical form
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+
+revisedSimplexStep(A,P,S,tol)
+
+    takes in a simplex tableau A, the pivot matrix so
+    far P, and the basic sequence S of P*A and performs
+    one step of the revised simplex method; returns the
+    new pivot matrix, the new basic sequence, and the
+    exit flag
+    
+    an exit flag of 2 indicates that the tableau is
+    already in optimal form, 1 indicates a successful
+    pivot and 0 indicates that the tableau is in
+    unbounded form
+    
+    this algorithm assumes that A is in canonical form
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+simplexRule(A,tol)
+
+    performs one step of the pivot rule, pivoting on the
+    leftmost negative cost and the first index with the
+    lowest b/A ratio to prevent cycling and returns the
+    tableau with the pivot, the row index of the pivot,
+    the column index of the pivot, and an exit flag
+    
+    an exit flag of 2 indicates that the tableau is
+    already in optimal form, 1 indicates a successful
+    pivot and 0 indicates that the tableau is in
+    unbounded form
+    
+    this algorithm assumes that A is in canonical form
+    
+    tol is tolerance for abs(x) to be treated as zero;
+    if no tolerance is given, the default is 1e-8
+
+Possible improvements:
+    have remove0Rows take in a tolerance as well
+    have GNFgraph use a hash table instead of an n x n matrix
+    make sure that tolerance is used instead of comparisons to 0
